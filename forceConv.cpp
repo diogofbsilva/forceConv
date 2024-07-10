@@ -189,9 +189,9 @@ baseConversion::baseConversion(int _rate, int _FT, int _skin, string _arm, strin
     if (autoconnect)
     {
         //Network::connect(string("/wholeBodyDynamics/filteredFT/l_arm_ft").c_str(),string("/"+local_name+"/left_arm_analog:i").c_str(),"tcp",false); // /wholeBodyDynamics/filteredFT/l_arm_ft
-        Network::connect(string("icub/right_arm/analog:o").c_str(),string("/"+local_name+"/right_arm_analog:i").c_str(),"tcp",false); // /wholeBodyDynamics/filteredFT/r_arm_ft
+        Network::connect(string("/wholeBodyDynamics/filteredFT/r_arm_ft").c_str(),string("/"+local_name+"/right_arm_analog:i").c_str(),"tcp",false); // /wholeBodyDynamics/filteredFT/r_arm_ft
         //Network::connect(string("/icubSim/left_arm/state:o").c_str(),string("/"+local_name+"/arm_l_joints:i").c_str(),"tcp",false);
-        Network::connect(string("/icub/right_arm/state:o").c_str(),string("/"+local_name+"/arm_r_joints:i").c_str(),"tcp",false);
+        Network::connect(string("/icubSim/right_arm/state:o").c_str(),string("/"+local_name+"/arm_r_joints:i").c_str(),"tcp",false);
         //Network::connect(string("/skinManager/skin_events:o").c_str(),string("/"+local_name+"/skin_events_conv:i").c_str(),"tcp",false);
         //Network::connect(string("/wholeBodyDynamics/imu/measures:i").c_str(),string("/"+local_name+"/inertials:i").c_str(),"tcp",false);
     }
@@ -421,11 +421,11 @@ void baseConversion::run()
             //yInfo("right");
 
             for (int j = 0; j< qj.size(); j++){
-                qj[j] = joints_r_arm[j];
+                qj.setVal(j,joints_r_arm[j]);
             }
             
-            r_arm_index = estimator.model().getFrameIndex("torso");
-            estimator.updateKinematicsFromFixedBase(qj,dqj,ddqj,l_arm_index,grav_idyn);
+            r_arm_index = estimator.model().getFrameIndex("torso_1");
+            estimator.updateKinematicsFromFixedBase(qj,dqj,ddqj,r_arm_index,grav_idyn);
 
             unknownWrench = iDynTree::UnknownWrenchContact();
             unknownWrench.unknownType = FULL_WRENCH;

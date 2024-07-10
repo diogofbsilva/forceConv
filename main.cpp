@@ -184,12 +184,13 @@ public:
         bool autoconnect;
         if (rf.check("autoconnect"))
         {
-             yInfo("'autoconnect' option enabled.\n");
-             autoconnect = true;
+            yInfo("'autoconnect' option enabled.\n");
+            autoconnect = true;
         }
         else
         {
-              autoconnect = true;
+            yInfo("disabled \n");
+            autoconnect = true;
         }
 
         //--------------- GAINS -------------------------//
@@ -268,7 +269,7 @@ public:
             yError ("'rate' parameter is deprecated. Use 'period' instead");
             return false;
         }
-        std::string remoteInertialName{"/"+robot_name+"/head/inertials"};
+        //std::string remoteInertialName{"/"+robot_name+"/head/inertials"};
 
         // ---------- Necessary to read the left arm force torque data -------------//
 
@@ -292,7 +293,7 @@ public:
 
         // ---------- Necessary to read the left arm force torque data -------------//
 
-    
+        /* NO ICUB
         if (right_arm_enabled)
         {
             OptionsRightArm.put("device","remote_controlboard");
@@ -305,6 +306,7 @@ public:
                 return false;
             }
         }
+        */
 
         
 
@@ -331,6 +333,8 @@ public:
         else arm = "left";
 
         //--------------------CHECK FT SENSOR------------------------
+        /* ROBOT REAL
+        
         if (!dummy_ft)
         {
             if ((dd_right_arm && !Network::exists("/" + robot_name + "/right_arm/analog:o")))
@@ -339,6 +343,7 @@ public:
                     return false;
                 }
         }  
+        */
 
 
         //---------------OPEN RPC PORT--------------------//
@@ -433,7 +438,7 @@ int main(int argc, char * argv[])
 {
     ResourceFinder rf;
     rf.setDefaultContext("forceConversion");
-    rf.setDefaultConfigFile("/home/icub/thesis_diogo_silva/Code_Implementation/forceConversion/forceConversion.ini");
+    rf.setDefaultConfigFile("/home/vislab/thesis_diogo_silva/Code_Implementation/forceConversion/forceConversion_sim.ini");
     rf.configure(argc,argv);
 
     if (rf.check("help"))
