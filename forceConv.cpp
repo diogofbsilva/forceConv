@@ -418,7 +418,11 @@ void baseConversion::run()
             yError() << "      Fbase2 - " << Wrench_base_Larm[2];
             broadcastData<Vector> (Wrench_base_Larm, port_FT_LA_base);
         }else if(arm  == "right"){
-            yInfo("right");
+            //yInfo("right");
+
+            for (int j = 0; j< qj.size(); j++){
+                qj[j] = joints_r_arm[j];
+            }
             
             r_arm_index = estimator.model().getFrameIndex("torso");
             estimator.updateKinematicsFromFixedBase(qj,dqj,ddqj,l_arm_index,grav_idyn);

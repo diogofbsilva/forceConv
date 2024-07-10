@@ -191,7 +191,7 @@ private:
 
     iDynTree::Sensor *sens_idyn;
     iDynTree::SensorsMeasurements estFTmeasurements;
-    iDynTree::LinkUnknownWrenchContacts *fullBodyUnknowns;
+    iDynTree::LinkUnknownWrenchContacts fullBodyUnknowns;
     iDynTree::JointDOFsDoubleArray estJointTorques;
     iDynTree::LinkContactWrenches estContactForces;
     iDynTree::UnknownWrenchContact unknownWrench;
